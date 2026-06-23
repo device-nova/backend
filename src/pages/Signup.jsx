@@ -64,10 +64,11 @@ export default function Signup() {
     }
   }
 
+  const buttonDisabled = loading;
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-void p-4">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-8">
-        {/* Logo */}
         <div className="mb-6 flex flex-col items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan/30 bg-cyan/10">
             <Boxes size={22} className="text-cyan" />
@@ -124,6 +125,7 @@ export default function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="new-password"
                 placeholder="••••••••"
                 className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 pr-10 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
               />
@@ -163,6 +165,7 @@ export default function Signup() {
               value={confirmPw}
               onChange={(e) => setConfirmPw(e.target.value)}
               required
+              autoComplete="new-password"
               placeholder="••••••••"
               className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             />
@@ -170,7 +173,7 @@ export default function Signup() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={buttonDisabled}
             className="flex items-center justify-center gap-2 rounded-xl border border-cyan/30 bg-cyan/10 px-4 py-2.5 font-mono text-sm text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
           >
             {loading ? (
@@ -182,17 +185,15 @@ export default function Signup() {
           </button>
         </form>
 
-        {/* Divider */}
         <div className="my-5 flex items-center gap-3">
           <div className="h-px flex-1 bg-border" />
           <span className="font-mono text-xs text-muted">or</span>
           <div className="h-px flex-1 bg-border" />
         </div>
 
-        {/* Google Signup */}
         <button
           onClick={handleGoogleSignup}
-          disabled={loading}
+          disabled={buttonDisabled}
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface-raised px-4 py-2.5 font-mono text-sm text-primary transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
         >
           <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">

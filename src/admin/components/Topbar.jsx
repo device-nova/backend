@@ -73,7 +73,7 @@ export default function Topbar({ onMenuClick }) {
         </p>
       </div>
 
-      <div className="relative ml-auto flex w-full max-w-[160px] items-center sm:max-w-xs md:ml-4 md:max-w-sm">
+      <div className="relative flex w-full max-w-[160px] items-center sm:max-w-xs md:max-w-sm">
         <Search size={14} className="absolute left-3 text-muted" aria-hidden="true" />
         <input
           type="search"
@@ -110,43 +110,45 @@ export default function Topbar({ onMenuClick }) {
         )}
       </div>
 
-      <button
-        onClick={() => navigate('/admin/alerts')}
-        aria-label={`Alerts, ${counts?.critical || 0} critical`}
-        className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted
-                   hover:bg-surface-raised hover:text-primary focus-visible:outline-none
-                   focus-visible:ring-2 focus-visible:ring-cyan"
-      >
-        <Bell size={17} />
-        {counts?.critical > 0 && (
-          <span className="absolute -right-0.5 -top-0.5">
-            <AlertBadge count={counts.critical} />
-          </span>
-        )}
-      </button>
+      <div className="ml-auto flex items-center gap-3">
+        <button
+          onClick={() => navigate('/admin/alerts')}
+          aria-label={`Alerts, ${counts?.critical || 0} critical`}
+          className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted
+                     hover:bg-surface-raised hover:text-primary focus-visible:outline-none
+                     focus-visible:ring-2 focus-visible:ring-cyan"
+        >
+          <Bell size={17} />
+          {counts?.critical > 0 && (
+            <span className="absolute -right-0.5 -top-0.5">
+              <AlertBadge count={counts.critical} />
+            </span>
+          )}
+        </button>
 
-      <button
-        onClick={toggleTheme}
-        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted
-                   hover:bg-surface-raised hover:text-primary focus-visible:outline-none
-                   focus-visible:ring-2 focus-visible:ring-cyan"
-      >
-        {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
-      </button>
+        <button
+          onClick={toggleTheme}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted
+                     hover:bg-surface-raised hover:text-primary focus-visible:outline-none
+                     focus-visible:ring-2 focus-visible:ring-cyan"
+        >
+          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+        </button>
 
-      <button
-        onClick={() => navigate('/admin/profile')}
-        aria-label="Open my profile"
-        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-cyan/20
-                   bg-cyan/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
-      >
-        {user?.photoURL ? (
-          <img src={user.photoURL} alt="" className="h-full w-full rounded-full object-cover" />
-        ) : (
-          <span className="font-mono text-xs font-semibold text-cyan">{initials}</span>
-        )}
-      </button>
+        <button
+          onClick={() => navigate('/admin/profile')}
+          aria-label="Open my profile"
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-cyan/20
+                     bg-cyan/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+        >
+          {user?.photoURL ? (
+            <img src={user.photoURL} alt="" referrerPolicy="no-referrer" className="h-full w-full rounded-full object-cover" />
+          ) : (
+            <span className="font-mono text-xs font-semibold text-cyan">{initials}</span>
+          )}
+        </button>
+      </div>
     </header>
   );
 }

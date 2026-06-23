@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Eye, EyeOff, Check, Moon, Sun, Monitor, Camera, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff, Check, Moon, Sun, Monitor, Camera, Loader2, LogOut } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { updateProfile } from 'firebase/auth';
 import { auth } from '../../config/firebase.js';
+import { logoutUser } from '../../services/authService.js';
 import { getUserProfile, updateUserProfile, updateUserPhoto } from '../../services/userService.js';
 import { uploadProfilePhoto } from '../../services/storageService.js';
 
@@ -23,14 +24,18 @@ const STRENGTH_LABELS = ['Weak', 'Fair', 'Moderate', 'Strong', 'Very Strong'];
 const STRENGTH_COLORS = ['bg-red-500', 'bg-amber-500', 'bg-yellow-400', 'bg-cyan', 'bg-success'];
 
 export default function Profile() {
+  const navigate = useNavigate();
   const { addToast } = useAdmin();
   const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photoURL, setPhotoURL] = useState('');
+  const [photoError, setPhotoError] = useState(false);
   const [savedField, setSavedField] = useState(null);
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => setPhotoError(false), [photoURL]);
 
   const [currentPw, setCurrentPw] = useState('');
   const [newPw, setNewPw] = useState('');
@@ -54,6 +59,16 @@ export default function Profile() {
   }, [user]);
 
   const score = strengthScore(newPw);
+
+  async function handleLogout() {
+    await logoutUser();
+    navigate('/login');
+  }
+
+  function getInitials(name) {
+    if (!name) return '?';
+    return name.split(' ').map((w) => w[0]).join('').toUpperCase().slice(0, 2);
+  }
 
   function saveField(field) {
     if (field === 'Name' && name !== user.displayName) {
@@ -109,10 +124,10 @@ export default function Profile() {
         <div className="flex flex-col items-center gap-4">
           <div className="group relative">
             <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border-2 border-cyan/30 bg-cyan/10">
-              {photoURL ? (
-                <img src={photoURL} alt="" className="h-full w-full object-cover" />
+              {photoURL && !photoError ? (
+                <img src={photoURL} alt="" referrerPolicy="no-referrer" onError={() => setPhotoError(true)} className="h-full w-full object-cover" />
               ) : (
-                <span className="font-display text-2xl font-bold text-cyan">JO</span>
+                <span className="font-display text-2xl font-bold text-cyan">{getInitials(user?.displayName)}</span>
               )}
             </div>
             <button
@@ -185,6 +200,14 @@ export default function Profile() {
               ? `Member since ${new Date(profile.createdAt.seconds * 1000).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`
               : ''}
           </p>
+          <button
+            onClick={handleLogout}
+            className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-2.5 font-mono text-xs
+                       text-red-400 transition-colors hover:bg-red-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
+          >
+            <LogOut size={14} />
+            Sign Out
+          </button>
         </div>
       </section>
 

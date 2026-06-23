@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  browserPopupRedirectResolver,
   signOut,
   updateProfile,
 } from 'firebase/auth';
@@ -21,14 +22,13 @@ export async function loginUser(email, password) {
 }
 
 export async function loginWithGoogle() {
-  const cred = await signInWithPopup(auth, googleProvider);
-  const user = cred.user;
-  await createUserProfile(user, {
-    name: user.displayName,
+  const cred = await signInWithPopup(auth, googleProvider, browserPopupRedirectResolver);
+  await createUserProfile(cred.user, {
+    name: cred.user.displayName,
     role: 'admin',
-    photoURL: user.photoURL,
+    photoURL: cred.user.photoURL,
   });
-  return user;
+  return cred.user;
 }
 
 export async function logoutUser() {

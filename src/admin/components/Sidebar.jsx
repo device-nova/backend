@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Settings, Boxes, X, LogOut } from 'lucide-react';
 import { ADMIN_NAV } from '../constants/adminNav.js';
@@ -26,8 +27,11 @@ export default function Sidebar({ onNavigate, onClose }) {
     navigate('/login');
   }
 
+  const [imgError, setImgError] = useState(false);
   const displayName = user?.displayName || 'User';
   const initials = getInitials(displayName);
+
+  useEffect(() => setImgError(false), [user?.photoURL]);
 
   return (
     <div className="flex h-full flex-col px-3 py-5">
@@ -110,8 +114,8 @@ export default function Sidebar({ onNavigate, onClose }) {
                      focus-visible:ring-cyan"
         >
           <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-cyan/20 bg-cyan/10">
-            {user?.photoURL ? (
-              <img src={user.photoURL} alt="" className="h-full w-full rounded-full object-cover" />
+            {user?.photoURL && !imgError ? (
+              <img src={user.photoURL} alt="" referrerPolicy="no-referrer" onError={() => setImgError(true)} className="h-full w-full rounded-full object-cover" />
             ) : (
               <span className="font-mono text-xs font-semibold text-cyan">{initials}</span>
             )}
