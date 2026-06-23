@@ -1,0 +1,133 @@
+/* ─── FONT IMPORTS ─────────────────────────────────── */
+/* Fonts imported in index.css */
+
+/* ─── DARK MODE: DEFAULT ────────────────────────────── */
+:root {
+  --bg-void:           #060A10;
+  --bg-surface:        #0D131C;
+  --bg-surface-raised: #131B26;
+  --fg-primary:        #F2F6FA;
+  --fg-muted:          #7E8CA0;
+  --border-default:    rgba(255, 255, 255, 0.08);
+  --border-hover:      rgba(0, 217, 255, 0.40);
+  --accent-cyan:       #00D9FF;
+  --accent-cyan-deep:  #0099CC;
+  --accent-amber:      #FF8A00;
+  --accent-amber-deep: #CC6E00;
+  --success:           #2EE6A6;
+  --danger:            #F87171;
+  --glow-cyan:         0 0 24px -6px rgba(0, 217, 255, 0.45);
+  --glow-amber:        0 0 20px -4px rgba(255, 138, 0, 0.50);
+}
+
+/* ─── LIGHT MODE: EXPLICIT OVERRIDE ─────────────────── */
+[data-theme="light"] {
+  --bg-void:           #F0F4F8;
+  --bg-surface:        #FFFFFF;
+  --bg-surface-raised: #F3F5F8;
+  --fg-primary:        #131B26;
+  --fg-muted:          #5B6B7F;
+  --border-default:    rgba(19, 27, 38, 0.10);
+  --border-hover:      rgba(0, 153, 204, 0.40);
+  --accent-cyan:       #0099CC;
+  --accent-cyan-deep:  #006B94;
+  --accent-amber:      #E07700;
+  --accent-amber-deep: #CC6E00;
+  --success:           #16A34A;
+  --danger:            #DC2626;
+  --glow-cyan:         0 4px 24px -8px rgba(0, 153, 204, 0.25);
+  --glow-amber:        0 4px 20px -8px rgba(224, 119, 0, 0.30);
+}
+
+/* ─── TAILWIND UTILITY ALIASES ──────────────────────── */
+.bg-void           { background-color: var(--bg-void); }
+.bg-surface        { background-color: var(--bg-surface); }
+.bg-surface-raised { background-color: var(--bg-surface-raised); }
+
+.bg-cyan\/5  { background-color: rgba(0, 217, 255, 0.05); }
+.bg-cyan\/10 { background-color: rgba(0, 217, 255, 0.10); }
+.bg-cyan\/15 { background-color: rgba(0, 217, 255, 0.15); }
+.bg-cyan\/20 { background-color: rgba(0, 217, 255, 0.20); }
+.bg-amber\/5  { background-color: rgba(255, 138, 0, 0.05); }
+.bg-amber\/10 { background-color: rgba(255, 138, 0, 0.10); }
+.bg-amber\/20 { background-color: rgba(255, 138, 0, 0.20); }
+.bg-success\/10 { background-color: rgba(46, 230, 166, 0.10); }
+.bg-success\/20 { background-color: rgba(46, 230, 166, 0.20); }
+
+.border-cyan\/20    { border-color: rgba(0, 217, 255, 0.20); }
+.border-cyan\/25    { border-color: rgba(0, 217, 255, 0.25); }
+.border-cyan\/30    { border-color: rgba(0, 217, 255, 0.30); }
+.border-cyan\/40    { border-color: rgba(0, 217, 255, 0.40); }
+.border-amber\/20   { border-color: rgba(255, 138, 0,  0.20); }
+.border-amber\/40   { border-color: rgba(255, 138, 0,  0.40); }
+.border-success\/20 { border-color: rgba(46, 230, 166, 0.20); }
+
+.text-primary { color: var(--fg-primary); }
+.text-muted   { color: var(--fg-muted); }
+.text-cyan    { color: var(--accent-cyan); }
+.text-amber   { color: var(--accent-amber); }
+.text-success { color: var(--success); }
+.text-danger  { color: var(--danger); }
+.text-red-400 { color: #F87171; }
+
+.border-border { border-color: var(--border-default); }
+.border-hover  { border-color: var(--border-hover); }
+
+.shadow-glow-cyan  { box-shadow: var(--glow-cyan); }
+.shadow-glow-amber { box-shadow: var(--glow-amber); }
+
+.font-display     { font-family: 'Space Grotesk', sans-serif; }
+.font-mono        { font-family: 'JetBrains Mono', monospace; }
+.tracking-widest2 { letter-spacing: 0.15em; }
+
+/* ─── GLOBAL BASE STYLES ─────────────────────────────── */
+html, body {
+  background-color: var(--bg-void);
+  color: var(--fg-primary);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── SKELETON LOADING SHIMMER ──────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface-raised) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    var(--bg-surface-raised) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+/* ─── ALERT PULSE GLOW ──────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1;   box-shadow: 0 0 4px  var(--accent-amber); }
+  50%       { opacity: 0.6; box-shadow: 0 0 14px var(--accent-amber); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ─── SECTION / CONTAINER UTILITIES ─────────────────── */
+.section-pad   { padding-top: 4rem; padding-bottom: 4rem; }
+.container-base {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px)  { .container-base { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .container-base { padding-left: 2rem;   padding-right: 2rem; } }
+
+/* ─── SCROLLBAR STYLING ─────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-default); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
