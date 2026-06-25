@@ -91,7 +91,7 @@ export default function DeviceDetail() {
         className="flex items-center gap-1.5 self-start font-mono text-xs text-muted transition-colors
                    hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded"
       >
-        <ArrowLeft size={13} /> Back to Devices
+        <ArrowLeft size={16} /> Back to Devices
       </button>
 
       {/* Header */}
@@ -145,7 +145,7 @@ export default function DeviceDetail() {
                        text-xs text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan"
           >
-            <RotateCw size={13} /> Restart AI
+            <RotateCw size={16} /> Restart AI
           </button>
           <button
             onClick={startEdit}
@@ -153,7 +153,7 @@ export default function DeviceDetail() {
                        text-primary transition-colors hover:border-hover focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan"
           >
-            <Pencil size={13} /> Edit
+            <Pencil size={16} /> Edit
           </button>
           <button
             onClick={() => setMenuOpen((v) => !v)}
@@ -164,7 +164,7 @@ export default function DeviceDetail() {
                        transition-colors hover:border-hover hover:text-primary focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan"
           >
-            <MoreVertical size={15} />
+            <MoreVertical size={16} />
           </button>
 
           <AnimatePresence>
@@ -192,7 +192,7 @@ export default function DeviceDetail() {
                   className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-primary hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                 >
-                  {device.status === 'offline' ? <Power size={14} className="text-muted" /> : <PowerOff size={14} className="text-muted" />}
+                  {device.status === 'offline' ? <Power size={16} className="text-muted" /> : <PowerOff size={16} className="text-muted" />}
                   {device.status === 'offline' ? 'Bring Online' : 'Take Offline'}
                 </button>
                 <div className="border-t border-border" />
@@ -225,7 +225,7 @@ export default function DeviceDetail() {
                     className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-amber hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                   >
-                    <Trash2 size={14} /> Remove Device
+                    <Trash2 size={16} /> Remove Device
                   </button>
                 )}
               </motion.div>
@@ -301,7 +301,7 @@ export default function DeviceDetail() {
                                font-mono text-[0.65rem] text-primary hover:border-hover focus-visible:outline-none
                                focus-visible:ring-2 focus-visible:ring-cyan"
                   >
-                    <Check size={11} /> Resolve
+                    <Check size={16} /> Resolve
                   </button>
                 )}
               </li>

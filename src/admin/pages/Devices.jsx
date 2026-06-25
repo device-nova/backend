@@ -51,7 +51,7 @@ export default function Devices() {
       {/* Controls bar */}
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         <div className="relative w-full max-w-sm">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={search}
@@ -73,7 +73,7 @@ export default function Devices() {
                        text-primary transition-colors hover:border-hover focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan"
           >
-            <Download size={13} /> Export CSV
+            <Download size={16} /> Export CSV
           </button>
           <button
             onClick={() => setAddOpen(true)}
@@ -81,7 +81,7 @@ export default function Devices() {
                        font-mono text-xs text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none
                        focus-visible:ring-2 focus-visible:ring-cyan"
           >
-            <Plus size={13} /> Add Device
+            <Plus size={16} /> Add Device
           </button>
         </div>
       </div>

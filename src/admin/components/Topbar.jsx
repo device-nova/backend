@@ -20,7 +20,7 @@ const TITLES = {
 function getTitle(pathname) {
   if (TITLES[pathname]) return TITLES[pathname];
   if (pathname.startsWith('/admin/devices/')) return 'Device Detail';
-  return 'Device-Nova Admin';
+  return 'Admin';
 }
 
 function getInitials(name) {
@@ -74,7 +74,7 @@ export default function Topbar({ onMenuClick }) {
       </div>
 
       <div className="relative flex w-full max-w-[160px] items-center sm:max-w-xs md:max-w-sm">
-        <Search size={14} className="absolute left-3 text-muted" aria-hidden="true" />
+        <Search size={16} className="absolute left-3 text-muted" aria-hidden="true" />
         <input
           type="search"
           value={search}
@@ -118,7 +118,7 @@ export default function Topbar({ onMenuClick }) {
                      hover:bg-surface-raised hover:text-primary focus-visible:outline-none
                      focus-visible:ring-2 focus-visible:ring-cyan"
         >
-          <Bell size={17} />
+          <Bell size={18} />
           {counts?.critical > 0 && (
             <span className="absolute -right-0.5 -top-0.5">
               <AlertBadge count={counts.critical} />
@@ -133,7 +133,7 @@ export default function Topbar({ onMenuClick }) {
                      hover:bg-surface-raised hover:text-primary focus-visible:outline-none
                      focus-visible:ring-2 focus-visible:ring-cyan"
         >
-          {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
 
         <button

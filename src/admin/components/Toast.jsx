@@ -42,7 +42,7 @@ export default function ToastStack() {
                 aria-label="Dismiss toast"
                 className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md opacity-60 transition-opacity hover:opacity-100"
               >
-                <X size={13} />
+                <X size={16} />
               </button>
             </motion.div>
           );

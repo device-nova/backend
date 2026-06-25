@@ -161,7 +161,7 @@ export default function Overview() {
                   <div className="flex items-center gap-3">
                     <span className="hidden font-mono text-xs text-cyan sm:inline">{d.model || '—'}</span>
                     <span className="font-mono text-xs text-muted">{d.lastSeen}</span>
-                    <ChevronRight size={14} className="text-muted" aria-hidden="true" />
+                    <ChevronRight size={16} className="text-muted" aria-hidden="true" />
                   </div>
                 </button>
               ))}

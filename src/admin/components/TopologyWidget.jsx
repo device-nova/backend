@@ -80,7 +80,7 @@ export default function TopologyWidget({ devices = [], onRestart }) {
                      transition-colors hover:border-hover hover:text-cyan focus-visible:outline-none
                      focus-visible:ring-2 focus-visible:ring-cyan"
         >
-          <RefreshCw size={14} />
+          <RefreshCw size={16} />
         </button>
       </div>
 
@@ -178,9 +178,14 @@ export default function TopologyWidget({ devices = [], onRestart }) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.12 }}
-              style={{ position: 'absolute', left: menu.x, top: menu.y }}
-              className="z-20 w-52 overflow-hidden rounded-xl border border-border bg-surface-raised shadow-lg"
-              style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
+              style={{
+                position: 'absolute',
+                left: menu.x,
+                top: menu.y,
+                backgroundColor: 'var(--bg-surface)',
+                borderColor: 'var(--border-default)',
+              }}
+              className="z-20 w-52 overflow-hidden rounded-xl border bg-surface-raised shadow-lg"
             >
               <p className="border-b border-border px-3 py-2 font-mono text-[0.65rem] uppercase tracking-widest2 text-muted">
                 {menu.device.id}
@@ -193,7 +198,7 @@ export default function TopologyWidget({ devices = [], onRestart }) {
                 className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-primary hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
               >
-                <Eye size={14} className="text-muted" /> View Device Details
+                <Eye size={16} className="text-muted" /> View Device Details
               </button>
               <button
                 onClick={() => {
@@ -203,7 +208,7 @@ export default function TopologyWidget({ devices = [], onRestart }) {
                 className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-primary hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
               >
-                <RotateCw size={14} className="text-muted" /> Restart Inference
+                <RotateCw size={16} className="text-muted" /> Restart Inference
               </button>
             </motion.div>
           )}

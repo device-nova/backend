@@ -110,7 +110,7 @@ export default function Alerts() {
                                  text-xs text-primary transition-colors hover:border-hover focus-visible:outline-none
                                  focus-visible:ring-2 focus-visible:ring-cyan"
                     >
-                      <Check size={12} /> Acknowledge
+                      <Check size={16} /> Acknowledge
                     </button>
                     <button
                       onClick={() => navigate(`/admin/devices/${alert.deviceId}`)}
@@ -118,7 +118,7 @@ export default function Alerts() {
                                  font-mono text-xs text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none
                                  focus-visible:ring-2 focus-visible:ring-cyan"
                     >
-                      <ExternalLink size={12} /> View Device
+                      <ExternalLink size={16} /> View Device
                     </button>
                   </div>
                 )}

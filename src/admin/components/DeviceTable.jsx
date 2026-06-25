@@ -73,7 +73,7 @@ function RowMenu({ device, onClose, anchorRef }) {
           className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-primary
                      transition-colors hover:bg-surface focus-visible:outline-none focus-visible:bg-surface"
         >
-          <item.icon size={14} className="text-muted" aria-hidden="true" />
+          <item.icon size={16} className="text-muted" aria-hidden="true" />
           {item.label}
         </button>
       ))}
@@ -86,7 +86,7 @@ function RowMenu({ device, onClose, anchorRef }) {
         className="flex w-full items-center gap-2.5 px-3 py-2.5 text-left text-sm text-amber
                    transition-colors hover:bg-surface focus-visible:outline-none focus-visible:bg-surface"
       >
-        <Trash2 size={14} aria-hidden="true" />
+        <Trash2 size={16} aria-hidden="true" />
         Remove Device
       </button>
     </motion.div>

@@ -107,7 +107,7 @@ export default function Settings() {
                               : 'border-l-2 border-transparent text-muted hover:bg-surface-raised hover:text-primary'
                           }`}
             >
-              <Icon size={15} aria-hidden="true" />
+              <Icon size={16} aria-hidden="true" />
               {t.label}
             </button>
           );
@@ -167,13 +167,13 @@ export default function Settings() {
                         type="button"
                         onClick={() => setAutoResolve((v) => !v)}
                         aria-pressed={autoResolve}
-                        className={`relative h-6 w-11 rounded-full transition-colors ${
-                          autoResolve ? 'bg-cyan' : 'bg-surface-raised'
+                        className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+                          autoResolve ? 'bg-cyan' : 'bg-border'
                         }`}
                       >
                         <span
-                          className={`absolute top-0.5 h-5 w-5 rounded-full bg-void transition-transform ${
-                            autoResolve ? 'translate-x-5' : 'translate-x-0.5'
+                          className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+                            autoResolve ? 'translate-x-5' : 'translate-x-0'
                           }`}
                         />
                       </button>
@@ -279,7 +279,7 @@ export default function Settings() {
                     className="flex items-center gap-1.5 rounded-xl border border-cyan/30 bg-cyan/10 px-3 py-2 font-mono text-xs
                                text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
                   >
-                    <Key size={13} /> Create Key
+                    <Key size={16} /> Create Key
                   </button>
                 </div>
 
@@ -344,7 +344,7 @@ export default function Settings() {
                               className="text-muted hover:text-primary"
                               aria-label="Copy key"
                             >
-                              <Copy size={12} />
+                              <Copy size={16} />
                             </button>
                           </div>
                         </div>
@@ -365,7 +365,7 @@ export default function Settings() {
                                        hover:bg-surface-raised hover:text-amber focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber"
                             aria-label={`Revoke ${k.name}`}
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={16} />
                           </button>
                         )}
                       </div>
@@ -449,11 +449,13 @@ function ToggleRow({ label, desc, defaultOn }) {
         type="button"
         onClick={() => setOn((v) => !v)}
         aria-pressed={on}
-        className={`relative h-6 w-11 rounded-full transition-colors ${on ? 'bg-cyan' : 'bg-surface-raised'}`}
+        className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+          on ? 'bg-cyan' : 'bg-border'
+        }`}
       >
         <span
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-void transition-transform ${
-            on ? 'translate-x-5' : 'translate-x-0.5'
+          className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+            on ? 'translate-x-5' : 'translate-x-0'
           }`}
         />
       </button>

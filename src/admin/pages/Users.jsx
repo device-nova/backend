@@ -99,7 +99,7 @@ export default function Users() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative w-full max-w-sm">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={search}
@@ -116,7 +116,7 @@ export default function Users() {
                      font-mono text-xs text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none
                      focus-visible:ring-2 focus-visible:ring-cyan sm:self-auto"
         >
-          <Plus size={13} /> Add User
+          <Plus size={16} /> Add User
         </button>
       </div>
 
@@ -185,7 +185,7 @@ export default function Users() {
                         className="flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-surface hover:text-primary"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                       >
-                        <MoreVertical size={15} />
+                        <MoreVertical size={16} />
                       </button>
                     )}
                     <AnimatePresence>
@@ -203,7 +203,7 @@ export default function Users() {
                             className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-primary hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                           >
-                            <Pencil size={13} className="text-muted" /> Edit
+                            <Pencil size={16} className="text-muted" /> Edit
                           </button>
                           {u.status === 'active' ? (
                             <button
@@ -214,7 +214,7 @@ export default function Users() {
                               className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-amber hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                             >
-                              <UserX size={13} /> Deactivate
+                              <UserX size={16} /> Deactivate
                             </button>
                           ) : (
                             <button
@@ -222,7 +222,7 @@ export default function Users() {
                               className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm text-success hover:bg-surface"
               style={{ backgroundColor: "var(--bg-surface)", borderColor: "var(--border-default)" }}
                             >
-                              <UserCheck size={13} /> Reactivate
+                              <UserCheck size={16} /> Reactivate
                             </button>
                           )}
                         </motion.div>
@@ -328,13 +328,13 @@ export default function Users() {
                     type="button"
                     onClick={() => setForm((f) => ({ ...f, status: f.status === 'active' ? 'inactive' : 'active' }))}
                     aria-pressed={form.status === 'active'}
-                    className={`relative h-6 w-11 rounded-full transition-colors ${
-                      form.status === 'active' ? 'bg-cyan' : 'bg-surface-raised'
+                    className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+                      form.status === 'active' ? 'bg-cyan' : 'bg-border'
                     }`}
                   >
                     <span
-                      className={`absolute top-0.5 h-5 w-5 rounded-full bg-void transition-transform ${
-                        form.status === 'active' ? 'translate-x-5' : 'translate-x-0.5'
+                      className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+                        form.status === 'active' ? 'translate-x-5' : 'translate-x-0'
                       }`}
                     />
                   </button>

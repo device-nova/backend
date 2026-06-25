@@ -35,7 +35,7 @@ export default {
     'tracking-widest2',
     'animate-pulse-glow',
     'skeleton',
-    { pattern: /^(bg|text|border)-(cyan|amber|success)\/(5|10|15|20|25|30|40)$/ },
+
   ],
   plugins: [],
 };

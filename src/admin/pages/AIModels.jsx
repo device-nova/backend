@@ -137,7 +137,7 @@ export default function AIModels() {
                       className="flex items-center gap-1 rounded-lg border border-cyan/30 bg-cyan/10 px-2.5 py-1.5
                                  font-mono text-[0.65rem] text-cyan hover:bg-cyan/20"
                     >
-                      <UploadCloud size={11} /> Update
+                      <UploadCloud size={16} /> Update
                     </button>
                     {m.status === 'active' && (
                       <button
@@ -145,7 +145,7 @@ export default function AIModels() {
                         className="flex items-center gap-1 rounded-lg border border-border px-2.5 py-1.5 font-mono
                                    text-[0.65rem] text-primary hover:border-hover"
                       >
-                        <RotateCcw size={11} /> Rollback
+                        <RotateCcw size={16} /> Rollback
                       </button>
                     )}
                     <button

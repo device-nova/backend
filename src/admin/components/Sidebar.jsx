@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Settings, Boxes, X, LogOut } from 'lucide-react';
+import { Settings, X, LogOut } from 'lucide-react';
 import { ADMIN_NAV } from '../constants/adminNav.js';
 import { useAdmin } from '../context/AdminContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 import { logoutUser } from '../../services/authService.js';
 import AlertBadge from './AlertBadge.jsx';
+import logoDark from '../../assets/logos/logo-dark.png';
+import logoLight from '../../assets/logos/logo-light.png';
 
 function getInitials(name) {
   if (!name) return '?';
@@ -21,6 +24,7 @@ export default function Sidebar({ onNavigate, onClose }) {
   const navigate = useNavigate();
   const { counts } = useAdmin();
   const { user } = useAuth();
+  const { theme } = useTheme();
 
   async function handleLogout() {
     await logoutUser();
@@ -37,15 +41,11 @@ export default function Sidebar({ onNavigate, onClose }) {
     <div className="flex h-full flex-col px-3 py-5">
       {onClose && (
         <div className="mb-2 flex items-center justify-between px-1 lg:hidden">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan/30 bg-cyan/10">
-              <Boxes size={16} className="text-cyan" aria-hidden="true" />
-            </div>
-            <div>
-              <p className="font-display text-sm font-bold leading-none text-primary">Device-Nova</p>
-              <p className="font-mono text-[0.6rem] leading-none text-muted">Admin Console</p>
-            </div>
-          </div>
+          <img
+            src={theme === 'dark' ? logoLight : logoDark}
+            alt="Device-Nova"
+            className="h-8 w-auto"
+          />
           <button
             onClick={onClose}
             aria-label="Close navigation menu"
@@ -57,14 +57,12 @@ export default function Sidebar({ onNavigate, onClose }) {
           </button>
         </div>
       )}
-      <div className="mb-6 flex items-center gap-2.5 px-3 lg:flex hidden">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan/30 bg-cyan/10">
-          <Boxes size={16} className="text-cyan" aria-hidden="true" />
-        </div>
-        <div>
-          <p className="font-display text-sm font-bold leading-none text-primary">Device-Nova</p>
-          <p className="font-mono text-[0.6rem] leading-none text-muted">Admin Console</p>
-        </div>
+      <div className="mb-6 flex items-center px-3 lg:flex hidden">
+        <img
+          src={theme === 'dark' ? logoLight : logoDark}
+          alt="Device-Nova"
+          className="h-8 w-auto"
+        />
       </div>
 
       <nav className="flex-1 overflow-y-auto" aria-label="Admin navigation">
@@ -125,7 +123,7 @@ export default function Sidebar({ onNavigate, onClose }) {
             <p className="font-mono text-[0.6rem] text-muted">Admin</p>
           </div>
           <Settings
-            size={14}
+            size={16}
             className="flex-shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100"
             aria-hidden="true"
           />

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Check, Moon, Sun, Monitor, Camera, Loader2, LogOut } from 'lucide-react';
+import { Eye, EyeOff, Check, Moon, Sun, Camera, Loader2, LogOut } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { useTheme } from '../../context/ThemeContext.jsx';
@@ -44,7 +44,7 @@ export default function Profile() {
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const { theme, toggleTheme, setTheme: setGlobalTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [notifPrefs, setNotifPrefs] = useState({ critical: true, warning: true, info: false, digest: false });
 
   const fileRef = useRef(null);
@@ -135,7 +135,7 @@ export default function Profile() {
               disabled={uploading}
               className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-surface-raised text-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
-              {uploading ? <Loader2 size={12} className="animate-spin" /> : <Camera size={12} />}
+              {uploading ? <Loader2 size={16} className="animate-spin" /> : <Camera size={16} />}
             </button>
             <input
               ref={fileRef}
@@ -163,7 +163,7 @@ export default function Profile() {
               className="flex h-10 items-center gap-1 rounded-xl border border-cyan/30 bg-cyan/10 px-3 font-mono text-xs
                          text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
-              {savedField === 'Name' ? <Check size={13} /> : null}
+              {savedField === 'Name' ? <Check size={16} /> : null}
               {savedField === 'Name' ? 'Saved' : 'Save'}
             </button>
           </div>
@@ -184,7 +184,7 @@ export default function Profile() {
               className="flex h-10 items-center gap-1 rounded-xl border border-cyan/30 bg-cyan/10 px-3 font-mono text-xs
                          text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             >
-              {savedField === 'Email' ? <Check size={13} /> : null}
+              {savedField === 'Email' ? <Check size={16} /> : null}
               {savedField === 'Email' ? 'Saved' : 'Save'}
             </button>
           </div>
@@ -205,7 +205,7 @@ export default function Profile() {
             className="mt-4 flex items-center justify-center gap-2 rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-2.5 font-mono text-xs
                        text-red-400 transition-colors hover:bg-red-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
           >
-            <LogOut size={14} />
+            <LogOut size={16} />
             Sign Out
           </button>
         </div>
@@ -277,17 +277,12 @@ export default function Profile() {
               {[
                 { key: 'dark', icon: Moon, label: 'Dark' },
                 { key: 'light', icon: Sun, label: 'Light' },
-                { key: 'system', icon: Monitor, label: 'System' },
               ].map((t) => {
                 const Icon = t.icon;
                 return (
                   <button
                     key={t.key}
-                    onClick={() =>
-                      t.key === 'system'
-                        ? (toggleTheme(), setGlobalTheme('dark'))
-                        : setGlobalTheme(t.key)
-                    }
+                    onClick={() => setTheme(t.key)}
                     aria-pressed={theme === t.key}
                     className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 font-mono text-xs transition-colors
                                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan ${
@@ -296,7 +291,7 @@ export default function Profile() {
                                     : 'border-border text-muted hover:text-primary'
                                 }`}
                   >
-                    <Icon size={13} aria-hidden="true" />
+                    <Icon size={16} aria-hidden="true" />
                     {t.label}
                   </button>
                 );
@@ -321,13 +316,13 @@ export default function Profile() {
                       setNotifPrefs((prev) => ({ ...prev, [n.key]: !prev[n.key] }))
                     }
                     aria-pressed={notifPrefs[n.key]}
-                    className={`relative h-6 w-11 rounded-full transition-colors ${
-                      notifPrefs[n.key] ? 'bg-cyan' : 'bg-surface-raised'
+                    className={`relative h-6 w-11 flex-shrink-0 rounded-full transition-colors ${
+                      notifPrefs[n.key] ? 'bg-cyan' : 'bg-border'
                     }`}
                   >
                     <span
-                      className={`absolute top-0.5 h-5 w-5 rounded-full bg-void transition-transform ${
-                        notifPrefs[n.key] ? 'translate-x-5' : 'translate-x-0.5'
+                      className={`absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white transition-transform ${
+                        notifPrefs[n.key] ? 'translate-x-5' : 'translate-x-0'
                       }`}
                     />
                   </button>
@@ -362,7 +357,7 @@ function PasswordField({ id, label, value, onChange, show, toggleShow }) {
           aria-label={show ? 'Hide password' : 'Show password'}
           className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-primary"
         >
-          {show ? <EyeOff size={15} /> : <Eye size={15} />}
+          {show ? <EyeOff size={16} /> : <Eye size={16} />}
         </button>
       </div>
     </div>

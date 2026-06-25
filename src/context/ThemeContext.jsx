@@ -24,7 +24,7 @@ export function ThemeProvider({ children }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme: () =>
+    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme: () =>
       setTheme(t => t === 'dark' ? 'light' : 'dark')
     }}>
       {children}

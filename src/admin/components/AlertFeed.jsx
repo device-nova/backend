@@ -62,7 +62,7 @@ export default function AlertFeed({ alerts = [], loading = false, limit = 5 }) {
                 <p className="mt-1 font-mono text-[0.6rem] text-muted">{alert.timestamp}</p>
               </div>
               <ChevronRight
-                size={14}
+                size={16}
                 className="mt-1 flex-shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100"
                 aria-hidden="true"
               />

@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Boxes, LogIn } from 'lucide-react';
+import { Eye, EyeOff, LogIn } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext.jsx';
 import { loginUser, loginWithGoogle } from '../services/authService.js';
+import logoDark from '../assets/logos/logo-dark.png';
+import logoLight from '../assets/logos/logo-light.png';
 
 export default function Login() {
   const navigate = useNavigate();
+  const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
@@ -43,11 +47,12 @@ export default function Login() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-void p-4">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-8">
-        <div className="mb-6 flex flex-col items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan/30 bg-cyan/10">
-            <Boxes size={22} className="text-cyan" />
-          </div>
-          <h1 className="font-display text-xl font-bold text-primary">Device-Nova</h1>
+        <div className="mb-6 flex flex-col items-center gap-4">
+          <img
+            src={theme === 'dark' ? logoLight : logoDark}
+            alt="Device-Nova"
+            className="h-14 w-auto sm:h-16"
+          />
           <p className="font-mono text-xs text-muted">Sign in to your account</p>
         </div>
 
