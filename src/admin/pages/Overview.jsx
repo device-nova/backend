@@ -92,7 +92,7 @@ export default function Overview() {
                 label="Critical Alerts"
                 tone="amber"
                 pulse={criticalCount > 0}
-                onClick={() => navigate('/admin/alerts')}
+                onClick={() => navigate('/alerts')}
               />,
               <StatCard key="load" icon={Cpu} value={stats.avgLoad} suffix="%" label="AI Processing Load" tone="cyan" />,
               <StatCard key="latency" icon={Clock} value={stats.avgLatency} suffix="ms" label="Avg Inference Latency" tone="cyan" />,
@@ -134,7 +134,7 @@ export default function Overview() {
         <div className="mb-3 flex items-center justify-between">
           <h3 className="font-display text-sm font-semibold text-primary">Recently Active Devices</h3>
           <button
-            onClick={() => navigate('/admin/devices')}
+            onClick={() => navigate('/devices')}
             className="font-mono text-[0.65rem] uppercase tracking-widest2 text-cyan hover:underline
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded"
           >
@@ -147,7 +147,7 @@ export default function Overview() {
             : recentDevices.map((d) => (
                 <button
                   key={d.id}
-                  onClick={() => navigate(`/admin/devices/${d.id}`)}
+                  onClick={() => navigate(`/devices/${d.id}`)}
                   className="flex items-center justify-between gap-3 py-3 text-left transition-colors
                              hover:bg-surface-raised focus-visible:outline-none focus-visible:ring-2
                              focus-visible:ring-cyan rounded-lg px-2"

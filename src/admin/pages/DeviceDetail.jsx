@@ -65,7 +65,7 @@ export default function DeviceDetail() {
     return (
       <div className="flex flex-col items-center gap-4 py-16 text-center">
         <p className="text-sm text-muted">Device "{id}" wasn't found in the fleet.</p>
-        <Link to="/admin/devices" className="font-mono text-xs text-cyan hover:underline">
+        <Link to="/devices" className="font-mono text-xs text-cyan hover:underline">
           ← Back to Devices
         </Link>
       </div>
@@ -87,7 +87,7 @@ export default function DeviceDetail() {
   return (
     <div className="flex flex-col gap-6">
       <button
-        onClick={() => navigate('/admin/devices')}
+        onClick={() => navigate('/devices')}
         className="flex items-center gap-1.5 self-start font-mono text-xs text-muted transition-colors
                    hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded"
       >
@@ -205,7 +205,7 @@ export default function DeviceDetail() {
                           addToast(`${device.id} removed`, 'warning');
                           setMenuOpen(false);
                           setConfirmRemove(false);
-                          navigate('/admin/devices');
+                          navigate('/devices');
                         }}
                         className="rounded-lg bg-amber/20 px-2.5 py-1 text-xs text-amber"
                       >

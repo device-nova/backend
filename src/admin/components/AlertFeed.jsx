@@ -13,7 +13,7 @@ export default function AlertFeed({ alerts = [], loading = false, limit = 5 }) {
       <div className="mb-2 flex items-center justify-between">
         <h3 className="font-display text-sm font-semibold text-primary">Live Alert Feed</h3>
         <button
-          onClick={() => navigate('/admin/alerts')}
+          onClick={() => navigate('/alerts')}
           className="font-mono text-[0.65rem] uppercase tracking-widest2 text-cyan hover:underline
                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded"
         >
@@ -42,7 +42,7 @@ export default function AlertFeed({ alerts = [], loading = false, limit = 5 }) {
               transition={{ delay: reduced ? 0 : i * 0.05 }}
               className="group flex items-start gap-3 rounded-lg border-b border-border px-3 py-3
                          transition-all duration-200 last:border-b-0 hover:bg-surface-raised cursor-pointer"
-              onClick={() => navigate('/admin/alerts')}
+              onClick={() => navigate('/alerts')}
             >
               <div
                 className={`mt-2 h-2 w-2 flex-shrink-0 rounded-full ${

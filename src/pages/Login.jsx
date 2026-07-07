@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Eye, EyeOff, LogIn } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext.jsx';
 import { loginUser, loginWithGoogle } from '../services/authService.js';
@@ -7,7 +7,6 @@ import logoDark from '../assets/logos/logo-dark.png';
 import logoLight from '../assets/logos/logo-light.png';
 
 export default function Login() {
-  const navigate = useNavigate();
   const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,12 +17,14 @@ export default function Login() {
   async function handleEmailLogin(e) {
     e.preventDefault();
     setError('');
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) { setError('Please enter your email address.'); return; }
+    if (!password) { setError('Please enter your password.'); return; }
     setLoading(true);
     try {
-      await loginUser(email, password);
-      navigate('/admin');
+      await loginUser(trimmedEmail, password);
     } catch (err) {
-      setError(err.message.replace('Firebase: ', '').replace(/\(.*\)/, ''));
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -34,15 +35,12 @@ export default function Login() {
     setLoading(true);
     try {
       await loginWithGoogle();
-      navigate('/admin');
     } catch (err) {
-      setError(err.message.replace('Firebase: ', '').replace(/\(.*\)/, ''));
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   }
-
-  const buttonDisabled = loading;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-void p-4">
@@ -57,12 +55,12 @@ export default function Login() {
         </div>
 
         {error && (
-          <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-2.5 font-mono text-xs text-red-400">
+          <div role="alert" className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-2.5 font-mono text-xs text-red-400">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleEmailLogin} className="flex flex-col gap-4">
+        <form onSubmit={handleEmailLogin} className="flex flex-col gap-4" noValidate>
           <div>
             <label htmlFor="email" className="mb-1.5 block font-mono text-xs uppercase tracking-widest2 text-muted">
               Email
@@ -71,23 +69,29 @@ export default function Login() {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => { setEmail(e.target.value); if (error) setError(''); }}
               required
+              autoComplete="email"
               placeholder="you@example.com"
               className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="mb-1.5 block font-mono text-xs uppercase tracking-widest2 text-muted">
-              Password
-            </label>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label htmlFor="password" className="font-mono text-xs uppercase tracking-widest2 text-muted">
+                Password
+              </label>
+              <Link to="/forgot-password" className="font-mono text-[0.6rem] text-cyan hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded">
+                Forgot?
+              </Link>
+            </div>
             <div className="relative">
               <input
                 id="password"
                 type={showPw ? 'text' : 'password'}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => { setPassword(e.target.value); if (error) setError(''); }}
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
@@ -106,7 +110,8 @@ export default function Login() {
 
           <button
             type="submit"
-            disabled={buttonDisabled}
+            disabled={loading}
+            aria-busy={loading}
             className="flex items-center justify-center gap-2 rounded-xl border border-cyan/30 bg-cyan/10 px-4 py-2.5 font-mono text-sm text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
           >
             {loading ? (
@@ -126,10 +131,11 @@ export default function Login() {
 
         <button
           onClick={handleGoogleLogin}
-          disabled={buttonDisabled}
+          disabled={loading}
+          aria-busy={loading}
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface-raised px-4 py-2.5 font-mono text-sm text-primary transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
@@ -140,9 +146,7 @@ export default function Login() {
 
         <p className="mt-6 text-center font-mono text-xs text-muted">
           Don&apos;t have an account?{' '}
-          <Link to="/signup" className="text-cyan hover:underline">
-            Sign up
-          </Link>
+          <Link to="/signup" className="text-cyan hover:underline">Sign up</Link>
         </p>
       </div>
     </div>

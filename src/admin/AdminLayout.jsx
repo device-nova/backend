@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Sidebar from './components/Sidebar.jsx';
@@ -7,6 +7,10 @@ import ToastStack from './components/Toast.jsx';
 export default function AdminLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const mainRef = useRef(null);
+  useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
+  }, [location.pathname]);
   return (
     <div
       className="flex h-screen overflow-hidden bg-void"
@@ -50,7 +54,7 @@ export default function AdminLayout() {
       </AnimatePresence>
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <Topbar onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-y-auto" style={{ backgroundColor: 'var(--bg-void)' }}>
+        <main ref={mainRef} className="flex-1 overflow-y-auto" style={{ backgroundColor: 'var(--bg-void)' }}>
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

@@ -12,23 +12,23 @@ export const ADMIN_NAV = [
   {
     group: 'Operations',
     items: [
-      { label: 'Overview', icon: LayoutDashboard, path: '/admin', exact: true },
-      { label: 'Devices', icon: Cpu, path: '/admin/devices' },
-      { label: 'AI Models', icon: BrainCircuit, path: '/admin/aimodels' },
-      { label: 'Alerts', icon: Bell, path: '/admin/alerts', badgeKey: 'critical' },
+      { label: 'Overview', icon: LayoutDashboard, path: '/', exact: true },
+      { label: 'Devices', icon: Cpu, path: '/devices' },
+      { label: 'AI Models', icon: BrainCircuit, path: '/aimodels' },
+      { label: 'Alerts', icon: Bell, path: '/alerts', badgeKey: 'critical' },
     ],
   },
   {
     group: 'Intelligence',
     items: [
-      { label: 'Analytics', icon: BarChart2, path: '/admin/analytics' },
+      { label: 'Analytics', icon: BarChart2, path: '/analytics' },
     ],
   },
   {
     group: 'Administration',
     items: [
-      { label: 'Users', icon: Users, path: '/admin/users' },
-      { label: 'Settings', icon: Settings, path: '/admin/settings' },
+      { label: 'Users', icon: Users, path: '/users' },
+      { label: 'Settings', icon: Settings, path: '/settings' },
     ],
   },
 ];

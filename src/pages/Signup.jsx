@@ -9,7 +9,8 @@ import logoLight from '../assets/logos/logo-light.png';
 export default function Signup() {
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
@@ -35,21 +36,23 @@ export default function Signup() {
     e.preventDefault();
     setError('');
 
-    if (password !== confirmPw) {
-      setError('Passwords do not match');
-      return;
-    }
-    if (score < 2) {
-      setError('Password too weak');
-      return;
-    }
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedFirst) { setError('Please enter your first name.'); return; }
+    if (!trimmedLast) { setError('Please enter your last name.'); return; }
+    if (!trimmedEmail) { setError('Please enter your email address.'); return; }
+    if (!password) { setError('Please enter a password.'); return; }
+    if (password !== confirmPw) { setError('Passwords do not match.'); return; }
+    if (score < 2) { setError('Password is too weak. Use at least 8 characters with a mix of letters, numbers, and symbols.'); return; }
 
     setLoading(true);
     try {
-      await registerUser(email, password, name);
-      navigate('/admin');
+      await registerUser(trimmedEmail, password, trimmedFirst, trimmedLast);
+      navigate('/');
     } catch (err) {
-      setError(err.message.replace('Firebase: ', '').replace(/\(.*\)/, ''));
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -60,15 +63,13 @@ export default function Signup() {
     setLoading(true);
     try {
       await loginWithGoogle();
-      navigate('/admin');
+      navigate('/');
     } catch (err) {
-      setError(err.message.replace('Firebase: ', '').replace(/\(.*\)/, ''));
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   }
-
-  const buttonDisabled = loading;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-void p-4">
@@ -83,25 +84,43 @@ export default function Signup() {
         </div>
 
         {error && (
-          <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-2.5 font-mono text-xs text-red-400">
+          <div role="alert" className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-2.5 font-mono text-xs text-red-400">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleEmailSignup} className="flex flex-col gap-4">
-          <div>
-            <label htmlFor="name" className="mb-1.5 block font-mono text-xs uppercase tracking-widest2 text-muted">
-              Full Name
-            </label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              placeholder="James Okonkwo"
-              className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
-            />
+        <form onSubmit={handleEmailSignup} className="flex flex-col gap-4" noValidate>
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <label htmlFor="firstName" className="mb-1.5 block font-mono text-xs uppercase tracking-widest2 text-muted">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                type="text"
+                value={firstName}
+                onChange={(e) => { setFirstName(e.target.value); if (error) setError(''); }}
+                required
+                autoComplete="given-name"
+                placeholder="James"
+                className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+              />
+            </div>
+            <div className="flex-1">
+              <label htmlFor="lastName" className="mb-1.5 block font-mono text-xs uppercase tracking-widest2 text-muted">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                type="text"
+                value={lastName}
+                onChange={(e) => { setLastName(e.target.value); if (error) setError(''); }}
+                required
+                autoComplete="family-name"
+                placeholder="Okonkwo"
+                className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+              />
+            </div>
           </div>
 
           <div>
@@ -112,8 +131,9 @@ export default function Signup() {
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => { setEmail(e.target.value); if (error) setError(''); }}
               required
+              autoComplete="email"
               placeholder="you@example.com"
               className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
             />
@@ -128,7 +148,7 @@ export default function Signup() {
                 id="password"
                 type={showPw ? 'text' : 'password'}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => { setPassword(e.target.value); if (error) setError(''); }}
                 required
                 autoComplete="new-password"
                 placeholder="••••••••"
@@ -147,10 +167,7 @@ export default function Signup() {
               <div className="mt-2 flex items-center gap-3">
                 <div className="flex flex-1 gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`h-1.5 flex-1 rounded-full ${i < score ? STRENGTH_COLORS[score - 1] : 'bg-border'}`}
-                    />
+                    <div key={i} className={`h-1.5 flex-1 rounded-full ${i < score ? STRENGTH_COLORS[score - 1] : 'bg-border'}`} />
                   ))}
                 </div>
                 <span className={`font-mono text-xs ${score > 0 ? 'text-primary' : 'text-muted'}`}>
@@ -168,7 +185,7 @@ export default function Signup() {
               id="confirmPw"
               type="password"
               value={confirmPw}
-              onChange={(e) => setConfirmPw(e.target.value)}
+              onChange={(e) => { setConfirmPw(e.target.value); if (error) setError(''); }}
               required
               autoComplete="new-password"
               placeholder="••••••••"
@@ -178,7 +195,8 @@ export default function Signup() {
 
           <button
             type="submit"
-            disabled={buttonDisabled}
+            disabled={loading}
+            aria-busy={loading}
             className="flex items-center justify-center gap-2 rounded-xl border border-cyan/30 bg-cyan/10 px-4 py-2.5 font-mono text-sm text-cyan transition-colors hover:bg-cyan/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
           >
             {loading ? (
@@ -198,10 +216,11 @@ export default function Signup() {
 
         <button
           onClick={handleGoogleSignup}
-          disabled={buttonDisabled}
+          disabled={loading}
+          aria-busy={loading}
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface-raised px-4 py-2.5 font-mono text-sm text-primary transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan disabled:opacity-50"
         >
-          <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
@@ -212,9 +231,7 @@ export default function Signup() {
 
         <p className="mt-6 text-center font-mono text-xs text-muted">
           Already have an account?{' '}
-          <Link to="/login" className="text-cyan hover:underline">
-            Sign in
-          </Link>
+          <Link to="/login" className="text-cyan hover:underline">Sign in</Link>
         </p>
       </div>
     </div>
