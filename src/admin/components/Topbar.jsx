@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, Search, Bell, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext.jsx';
@@ -37,10 +37,22 @@ export default function Topbar({ onMenuClick }) {
   const [search, setSearch] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [lastSynced, setLastSynced] = useState(new Date());
+  const [showNotifications, setShowNotifications] = useState(false);
+  const notifRef = useRef(null);
 
   useEffect(() => {
     const t = setInterval(() => setLastSynced(new Date()), 30000);
     return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    function handleClick(e) {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setShowNotifications(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
   }, []);
 
   const matches = search.trim()
@@ -86,14 +98,35 @@ export default function Topbar({ onMenuClick }) {
       </div>
 
       <div className="ml-auto flex items-center gap-3">
-        <button onClick={() => navigate('/alerts')} aria-label={`Alerts, ${counts?.critical || 0} critical`}
-          className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
-        >
-          <Bell size={18} />
-          {counts?.critical > 0 && (
-            <span className="absolute -right-0.5 -top-0.5"><AlertBadge count={counts.critical} /></span>
+        <div className="relative" ref={notifRef}>
+          <button onClick={() => setShowNotifications((v) => !v)} aria-label={`Alerts, ${counts?.critical || 0} critical`}
+            className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
+          >
+            <Bell size={18} />
+            {counts?.critical > 0 && (
+              <span className="absolute -right-0.5 -top-0.5"><AlertBadge count={counts.critical} /></span>
+            )}
+          </button>
+          {showNotifications && (
+            <div className="absolute right-0 mt-2 w-80 bg-[#0d1527] border border-slate-800 rounded-lg shadow-xl p-2 z-50">
+              <button onClick={() => { navigate('/alerts'); setShowNotifications(false); }}
+                className="flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-primary hover:bg-white/5 transition-colors"
+              >
+                <div className="flex-1">
+                  <p className="text-xs text-primary">Anomalous vibration detected on Robotic Assembly Arm #4. Latency stable at 1.8ms.</p>
+                </div>
+              </button>
+              <div className="mx-2 my-1 border-t border-slate-800" />
+              <button onClick={() => { navigate('/alerts'); setShowNotifications(false); }}
+                className="flex w-full items-start gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-primary hover:bg-white/5 transition-colors"
+              >
+                <div className="flex-1">
+                  <p className="text-xs text-primary">Edge deployment node sync successfully configured for 548 Market St facility.</p>
+                </div>
+              </button>
+            </div>
           )}
-        </button>
+        </div>
 
         <button onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"

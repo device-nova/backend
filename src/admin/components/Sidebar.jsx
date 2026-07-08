@@ -36,18 +36,18 @@ export default function Sidebar({ onNavigate, onClose }) {
     <div className="flex h-full flex-col px-3 py-5">
       {onClose && (
         <div className="mb-2 flex items-center justify-between px-1 lg:hidden">
-          <button onClick={() => { navigate('/'); onNavigate?.(); }} aria-label="Go to dashboard" className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded">
+          <a href="https://device-nova.com/" aria-label="Go to Device-Nova homepage" className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded">
             <img src={theme === 'dark' ? logoLight : logoDark} alt="Device-Nova" className="h-16 w-auto" />
-          </button>
+          </a>
           <button onClick={onClose} aria-label="Close navigation menu" className="flex h-8 w-8 items-center justify-center rounded-lg text-muted hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan">
             <X size={16} />
           </button>
         </div>
       )}
       <div className="mb-6 flex items-center px-3 lg:flex hidden">
-        <button onClick={() => navigate('/')} aria-label="Go to dashboard" className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded">
+        <a href="https://device-nova.com/" aria-label="Go to Device-Nova homepage" className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan rounded">
           <img src={theme === 'dark' ? logoLight : logoDark} alt="Device-Nova" className="h-16 w-auto" />
-        </button>
+        </a>
       </div>
 
       <nav className="flex-1 overflow-y-auto" aria-label="Admin navigation">

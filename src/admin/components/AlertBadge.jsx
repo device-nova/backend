@@ -11,7 +11,7 @@ export default function AlertBadge({ count, size = 'sm' }) {
       animate={reduced ? {} : { scale: [1, 1.15, 1] }}
       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       className={`inline-flex items-center justify-center rounded-full bg-amber font-mono font-semibold
-                  text-void ${sizeClasses}`}
+                  text-white ${sizeClasses}`}
     >
       {count}
     </motion.span>

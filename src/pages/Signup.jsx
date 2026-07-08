@@ -102,7 +102,7 @@ export default function Signup() {
                 onChange={(e) => { setFirstName(e.target.value); if (error) setError(''); }}
                 required
                 autoComplete="given-name"
-                placeholder="James"
+                placeholder="Enter your first name"
                 className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
               />
             </div>
@@ -117,7 +117,7 @@ export default function Signup() {
                 onChange={(e) => { setLastName(e.target.value); if (error) setError(''); }}
                 required
                 autoComplete="family-name"
-                placeholder="Okonkwo"
+                placeholder="Enter your last name"
                 className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2.5 text-sm text-primary placeholder:text-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
               />
             </div>
