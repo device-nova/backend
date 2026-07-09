@@ -20,25 +20,6 @@
   --glow-amber:        0 0 20px -4px rgba(255, 138, 0, 0.50);
 }
 
-/* ─── LIGHT MODE: EXPLICIT OVERRIDE ─────────────────── */
-[data-theme="light"] {
-  --bg-void:           #F0F4F8;
-  --bg-surface:        #FFFFFF;
-  --bg-surface-raised: #F3F5F8;
-  --fg-primary:        #131B26;
-  --fg-muted:          #5B6B7F;
-  --border-default:    rgba(19, 27, 38, 0.10);
-  --border-hover:      rgba(0, 153, 204, 0.40);
-  --accent-cyan:       #0099CC;
-  --accent-cyan-deep:  #006B94;
-  --accent-amber:      #E07700;
-  --accent-amber-deep: #CC6E00;
-  --success:           #16A34A;
-  --danger:            #DC2626;
-  --glow-cyan:         0 4px 24px -8px rgba(0, 153, 204, 0.25);
-  --glow-amber:        0 4px 20px -8px rgba(224, 119, 0, 0.30);
-}
-
 /* ─── TAILWIND UTILITY ALIASES ──────────────────────── */
 .bg-void           { background-color: var(--bg-void); }
 .bg-surface        { background-color: var(--bg-surface); }

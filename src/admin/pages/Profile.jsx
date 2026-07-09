@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Check, Moon, Sun, Camera, Loader2, LogOut } from 'lucide-react';
+import { Eye, EyeOff, Check, Camera, Loader2, LogOut } from 'lucide-react';
 import { updateProfile, EmailAuthProvider, reauthenticateWithCredential, updatePassword } from 'firebase/auth';
 import { auth } from '../../config/firebase.js';
 import { useAdmin } from '../context/AdminContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
-import { useTheme } from '../../context/ThemeContext.jsx';
 import { logoutUser } from '../../services/authService.js';
 import { getUserProfile, updateUserProfile, updateUserPhoto } from '../../services/userService.js';
 import { uploadProfilePhoto } from '../../services/storageService.js';
@@ -46,7 +45,6 @@ export default function Profile() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [changingPw, setChangingPw] = useState(false);
 
-  const { theme, setTheme } = useTheme();
   const [notifPrefs, setNotifPrefs] = useState({ critical: true, warning: true, info: false, digest: false });
 
   const fileRef = useRef(null);
@@ -254,28 +252,6 @@ export default function Profile() {
       <section className="rounded-2xl border border-border bg-surface p-6">
         <h2 className="mb-4 font-display text-lg font-semibold text-primary">Preferences</h2>
         <div className="flex flex-col gap-4">
-          <div>
-            <label className="mb-2 block font-mono text-xs uppercase tracking-widest2 text-muted">Theme</label>
-            <div className="flex gap-2">
-              {[
-                { key: 'dark', icon: Moon, label: 'Dark' },
-                { key: 'light', icon: Sun, label: 'Light' },
-              ].map((t) => {
-                const Icon = t.icon;
-                return (
-                  <button key={t.key} onClick={() => setTheme(t.key)} aria-pressed={theme === t.key}
-                    className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan ${
-                      theme === t.key ? 'border-cyan/40 bg-cyan/10 text-cyan' : 'border-border text-muted hover:text-primary'
-                    }`}
-                  >
-                    <Icon size={16} aria-hidden="true" />
-                    {t.label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
           <div>
             <label className="mb-2 block font-mono text-xs uppercase tracking-widest2 text-muted">Notification Preferences</label>
             <div className="flex flex-col gap-3">

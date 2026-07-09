@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Search, Bell, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { Menu, Search, Bell } from 'lucide-react';
 import { useAdmin } from '../context/AdminContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import AlertBadge from './AlertBadge.jsx';
@@ -31,7 +30,6 @@ function getInitials(name) {
 export default function Topbar({ onMenuClick }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { theme, toggleTheme } = useTheme();
   const { counts, devices } = useAdmin();
   const { user } = useAuth();
   const [search, setSearch] = useState('');
@@ -127,13 +125,6 @@ export default function Topbar({ onMenuClick }) {
             </div>
           )}
         </div>
-
-        <button onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg text-muted hover:bg-surface-raised hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
-        >
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-
         <button onClick={() => navigate('/profile')} aria-label="Open my profile"
           className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-cyan/20 bg-cyan/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan"
         >
